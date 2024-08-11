@@ -1,0 +1,170 @@
+   
+   
+   /*AQUI ESTAMOS CARREGANDO E APLICANDO AS ESTILIZAÇÕES DO CORPO PARA O HTML, COMO FONTE, CORES, TAMANHO DA TELA E margin=ESPAÇAMETNO EXTERNO*/
+body{
+    font-family: "Poppins", sans-serif;
+    max-width: 1280px;
+    margin: 0 auto;
+
+}
+
+    /*CUSTOMIZAR AS IMAGENS DO CARROCEL. LEMBRANDO: SEMPRE QUE VAI ESTILIZAR UMA CLASSE DEVE SE COLOCAR ''.'' ANTES DELA.*/
+.carrossel {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: -1;
+   /*z-index: -1 SOBREPÕEM O TEXTO A IMAGEM.*/
+}
+    /*AQUI VAI EDITAR AS INFORMAÇÕES DOS ELEMENTOS COM CLASSE ".informacoes"*/
+.informacoes{
+    display: none;    
+} 
+
+
+    /*AQUI EDITA SOMENTE O ELEMENTO COM A CLASSE".informacoes.ativa". "display: block; QUER DIZER QUE SÓ VAI MOSTRAR O ELEMENTO QUE TEM A CLASSE ATIVA."*/
+.informacoes.ativa{
+    display: block;
+
+}
+
+    /*OTIMIZAÇÃO DO CONTEUDO. FLEX-DIRECTION: COLUMN; DEIXA O CONTEUDO EM COLUNA.
+  JUSTIFY-CONTENT: SPACE-EVELYN: VAI JUSTIFICAR O CONTEÚDO "ESPAÇAR OS ELEMENTOS DA MESMA FORMA"*/
+
+  /*PARA CRIAR OS ESPAÇOS DO CONTEUDO, ALTURA MIN-HEIGHT (ALTURA MINIMA)  (VH MEDIDA RELATIVA)*/ 
+  /*VIEW PORT HEIGHT= JANELA DO NAVEGADOR/ALTURA TEM QUE TER ESPAÇO DE SOBRA PARA POSICIONAR A CAIXA DE CONTEUDO. POR ISSO 100VH*/
+.conteudo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 100vh;
+}
+
+    /*APLICAR REGRAS NO H1 QUE ESTA DENTRO DE UMA DIV INFORMACOES. AS CORES SÃO PARA IDENTIFICAR O QUE ESTA SENDO ALTERADO NO NAVEGADOR.
+    FONT-SIZE É O TAMANHO DA FONTE QUE ESTA NO h1. 
+    margin-bottom: 80px:  SEPARA O TITULO DO TEXTO. */
+
+.informacoes h1{
+    font-size: 35px;
+    color: white;
+    margin-bottom: 80px;
+    font-family: "GOT";
+    letter-spacing: 8px;
+
+}
+    /*AQUI MODIFICA A FONTE DO TITULO. COM O src: url(../) BUSCAMOS O CAMINHO DA FONTE. "../" É USADO PARA ENCONTRAR A PASTA. É FEITO DE TRAS PRA FRENTE */ 
+
+    /*DEPOIS DE ANEXAR A PASTA AO CODIGO APLICA ELA NA ESTRUTURA "h1 como font-family: "GOT";*/
+@font-face{
+    font-family: "GOT";
+    src: url(../fontes/GOT.ttf);
+}
+
+
+    /*AQUI VAMOS CUSTOMIZAR AS INFORMAÇÃOS/DESCRIÇÃO. PARA CUSTOMIZAR A DESCRIÇÃO COM MAIS TEXTOS PODE SE USAR:
+     height:300px; (altura vai aumentar)
+     overflow: auto; (FAZ COM QUE SE TIVER MAIS TEXTO ELE VAI CRIAR UM SCROOL) 
+     padding-right: 15px; (CRIA UM ESPAÇAMENTO NA DIREITA "SÓ PARA DESGRUDAR O TEXTO E PRA FICAR MELHOR A VISUALIZAÇÃO DO SCROOL) */
+.informacoes .descricao{
+    width: 49%;
+    font-size: 24px;
+    color: white;
+    line-height: 40px;
+    height: 300px;
+    overflow: auto;
+    padding-right: 15px;
+}
+
+/*BOTÕES: 
+CENTRALIZAR E ESTILIZAR OS BOTÕES VAMOS USAR.
+display: flez; DESGRUDA OS BOTÕES
+justfy-content: center; PARA CENTRALIZAR ELES NO MEIO DA TELA (JUSTIFICANDO O CONTEUDO AO CENTRO)
+gap: 20px; ESPAÇAMENTO DE 20px DOS ELEMENTOS
+*/
+.botoes-carrossel{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+/* border-radius: 50%; SERVE PARA ARREDONDAR OS ELEMENTOS DOS BOTÕES, 50% MEDIDA PADRÃO PARA ARRENDODAR
+border: 2px solid transparent; ADICIONAR BORDAR SOLIDA DE 2PX TRANSPARENTE(SÓ PRA TIRAR QUALQUER BORDA.
+cursor: pointer; SERVE PARA QUANDO PASSAR O CURSOR DO MOUSE APARECER A MÃOZINHA INDICANDO QUE É UM BOTÃO;
+*/
+.botoes-carrossel .botao{
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    border-color: #ffffff;
+}
+
+/*ESTILIZAR O BOTÃO QUE ESTA SELECIONADO:
+
+*/
+
+.botoes-carrossel .botao.selecionado{
+    background-color: #1d8346;
+}
+
+
+/*ESTILIZAR IMAGENS::after
+width:100vw;= LARGURA DA TELA.
+PARA NAO APARECER OUTRAS IMAGENS USAMOS;
+height: 100vh;
+PARA IMAGEM NAO FICAR DESPROPORCIONAL, E SIM FICAR CENTRALIZADA E PADRÃO. USAMOS 
+object-fit: cover; = "FAÇA CABER A IMAGEM NA PROPORÇÃO DA TELA"
+PARA OCULTAR A IMAGEM ATIVA USAMOS display: none;
+*/
+
+.imagem{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    display: none;
+}
+
+
+/* COMANDO PARA FAZER APARECER A IMAGEM ATIVA. COMANDO NESCESSARIO PARA APLICAR NAS IMAGENS SEGUINTE. (PROCEDIMENTO USADO NO JS)
+PARA CHAMAR A ANIMAÇÃO USAMOS: animation: mudarImagem 0.7s; (0.7s é o tempo que vai durar a imagem (mudarImagem é o nome que atribuimos ao @keyframes*/
+
+.imagem.ativa{
+    display: block;
+    animation: mudarImagem 0.7s;
+}
+
+/*PROCEDIMENTO PARA MUDAR IMAGENS E EFEITOS NO CARROSSEL. "keyframes descreve como cada elemento animado vai mudar de estilo em diferentes pontos da animação. GERALMENTE USADO COM 0, 100%, OU USANDO TAMBÉM "FROM" E "TO". FROM SERIA O INICIO.
+VAMOS APLICAR OPACIDADE A IMAGEM E ANIMAÇÃO.*/
+@keyframes mudarImagem {
+    from {
+        opacity: 0.85;
+    }
+    to{
+        opacity: 1;
+    }
+
+}
+
+/* TECNICA PARA APLICAR FILTRO: VAMOS USAR UM PSEUDO-ELEMENTO NO CSS QUE SIGNIFICA UMA PALAVRA CHAVE NO SELETOR QUE NOS PERMITE ESTILIZAR UMA PARTE DA IMAGEM ESPECIFICA, SEM PRECISAR ALTERAR O CONTEUDO HTML, SEM PRECISAR COLOCAR UMA CLASSE NOVA OU UMA TAG NOVA DENTRO DO HTML.
+QUANDO ESCREVO ":after" SIGNIFICA QUE ESTOU USANDO UM PSEUDO-ELEMENTO*/
+
+/*QUANDO VOCÊ USA O COMANDO 
+main:after{
+    content: ""; 
+     VOCÊ ESTA CRIANDO UM PSEUDO ELEMENTO*/ 
+
+main:after{
+    content: "";
+    min-height: 100vh;
+    width: 100vw;
+    background-color: blue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(120deg, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0.05926120448179273) 50%, rgba(0, 0, 0, 1) 90%);
+    z-index: -1;
+}
